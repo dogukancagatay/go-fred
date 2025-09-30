@@ -21,22 +21,26 @@ A RESTful web application for running one-time or periodic tasks, built with Go 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd go-fred
 ```
 
 2. Install dependencies:
+
 ```bash
 go mod download
 ```
 
 3. Build the application:
+
 ```bash
 go build -o go-fred .
 ```
 
 4. Run the application:
+
 ```bash
 ./go-fred
 ```
@@ -82,6 +86,7 @@ tasks:
 ## API Reference
 
 ### Base URL
+
 ```
 http://localhost:8080/api/v1
 ```
@@ -89,6 +94,7 @@ http://localhost:8080/api/v1
 ### Endpoints
 
 #### Health Check
+
 ```http
 GET /health
 ```
@@ -96,6 +102,7 @@ GET /health
 Returns the health status of the server.
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -104,6 +111,7 @@ Returns the health status of the server.
 ```
 
 #### Create Task
+
 ```http
 POST /tasks
 ```
@@ -111,6 +119,7 @@ POST /tasks
 Creates a new task.
 
 **Request Body:**
+
 ```json
 {
   "type": "echo",
@@ -122,6 +131,7 @@ Creates a new task.
 ```
 
 **Response:**
+
 ```json
 {
   "task": {
@@ -138,6 +148,7 @@ Creates a new task.
 ```
 
 #### List Tasks
+
 ```http
 GET /tasks
 ```
@@ -145,6 +156,7 @@ GET /tasks
 Returns all tasks.
 
 **Response:**
+
 ```json
 {
   "tasks": [
@@ -173,6 +185,7 @@ Returns all tasks.
 ```
 
 #### Get Task
+
 ```http
 GET /tasks/{id}
 ```
@@ -180,6 +193,7 @@ GET /tasks/{id}
 Returns a specific task by ID.
 
 **Response:**
+
 ```json
 {
   "task": {
@@ -205,6 +219,7 @@ Returns a specific task by ID.
 ```
 
 #### Execute Task (Synchronous)
+
 ```http
 POST /tasks/{id}/execute
 ```
@@ -212,6 +227,7 @@ POST /tasks/{id}/execute
 Executes a task synchronously and returns the result.
 
 **Response:**
+
 ```json
 {
   "task": {
@@ -237,6 +253,7 @@ Executes a task synchronously and returns the result.
 ```
 
 #### Execute Task (Asynchronous)
+
 ```http
 POST /tasks/{id}/execute-async
 ```
@@ -244,6 +261,7 @@ POST /tasks/{id}/execute-async
 Executes a task asynchronously and returns immediately.
 
 **Response:**
+
 ```json
 {
   "task": {
@@ -261,6 +279,7 @@ Executes a task asynchronously and returns immediately.
 ```
 
 #### Cancel Task
+
 ```http
 DELETE /tasks/{id}
 ```
@@ -268,6 +287,7 @@ DELETE /tasks/{id}
 Cancels a running task.
 
 **Response:**
+
 ```json
 {
   "task": {
@@ -287,6 +307,7 @@ Cancels a running task.
 ```
 
 #### Get Task Types
+
 ```http
 GET /task-types
 ```
@@ -294,6 +315,7 @@ GET /task-types
 Returns all supported task types.
 
 **Response:**
+
 ```json
 {
   "task_types": ["echo", "sleep", "error", "math"]
@@ -303,9 +325,11 @@ Returns all supported task types.
 ## Built-in Task Types
 
 ### Echo
+
 Echoes the input data.
 
 **Input:**
+
 ```json
 {
   "type": "echo",
@@ -316,6 +340,7 @@ Echoes the input data.
 ```
 
 **Output:**
+
 ```json
 {
   "echo": {
@@ -326,9 +351,11 @@ Echoes the input data.
 ```
 
 ### Sleep
+
 Sleeps for a specified duration.
 
 **Input:**
+
 ```json
 {
   "type": "sleep",
@@ -339,6 +366,7 @@ Sleeps for a specified duration.
 ```
 
 **Output:**
+
 ```json
 {
   "slept_for_seconds": 5,
@@ -347,9 +375,11 @@ Sleeps for a specified duration.
 ```
 
 ### Error
+
 Always fails with a custom error message.
 
 **Input:**
+
 ```json
 {
   "type": "error",
@@ -360,6 +390,7 @@ Always fails with a custom error message.
 ```
 
 **Error:**
+
 ```json
 {
   "error": "Custom error message"
@@ -367,9 +398,11 @@ Always fails with a custom error message.
 ```
 
 ### Math
+
 Performs basic math operations.
 
 **Input:**
+
 ```json
 {
   "type": "math",
@@ -382,6 +415,7 @@ Performs basic math operations.
 ```
 
 **Output:**
+
 ```json
 {
   "operation": "add",
@@ -416,9 +450,11 @@ The application publishes events during task lifecycle:
 ### Event Publisher Types
 
 #### No-op Publisher (Default)
+
 Logs events to stdout. No external dependencies.
 
 #### Kafka Publisher
+
 Publishes events to a Kafka topic. Requires Kafka configuration.
 
 ## Usage Examples
@@ -470,6 +506,30 @@ curl http://localhost:8080/api/v1/tasks
 
 ## Development
 
+### Running Tests
+
+The project includes comprehensive unit tests for all packages. You can run tests using:
+
+```bash
+# Run all tests
+go test ./...
+
+# Run tests with verbose output
+go test -v ./...
+
+# Run tests with coverage
+go test -coverprofile=coverage.out ./...
+go tool cover -html=coverage.out -o coverage.html
+
+# Run tests with coverage summary
+go test -cover ./...
+
+# Using Make (if available)
+make test
+make test-verbose
+make test-coverage
+```
+
 ### Project Structure
 
 ```
@@ -478,12 +538,29 @@ go-fred/
 ├── config.yaml            # Configuration file
 ├── go.mod                 # Go module file
 ├── go.sum                 # Go module checksums
+├── Makefile               # Build automation
+├── .air.toml              # Hot reload configuration
 ├── internal/              # Internal packages
 │   ├── config/           # Configuration management
+│   │   ├── config.go
+│   │   └── config_test.go
 │   ├── events/           # Event publishing
+│   │   ├── publisher.go
+│   │   ├── events.go
+│   │   └── events_test.go
 │   ├── models/           # Data models
+│   │   ├── task.go
+│   │   └── task_test.go
 │   ├── server/           # HTTP server
+│   │   ├── server.go
+│   │   ├── server_test.go
+│   │   ├── handlers.go
+│   │   └── handlers_test.go
 │   └── tasks/            # Task execution
+│       ├── executor.go
+│       ├── executor_test.go
+│       ├── executors.go
+│       └── task_manager_test.go
 └── README.md             # This file
 ```
 
