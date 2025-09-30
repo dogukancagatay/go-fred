@@ -1,0 +1,13 @@
+server:
+  host: "localhost"
+  port: 8080
+
+events:
+  publisher: "noop" # "noop" or "kafka"
+  kafka:
+    brokers: ["localhost:9092"]
+    topic: "go-fred-events"
+
+tasks:
+  max_concurrent: 10
+  timeout_seconds: 300
