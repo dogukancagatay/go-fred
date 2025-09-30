@@ -3,15 +3,16 @@ package server
 import (
 	"net/http"
 
+	"go-fred-rest/internal/models"
+
 	"github.com/gin-gonic/gin"
-	"go-fred/internal/models"
 )
 
 // healthCheck returns the health status of the server
 func (s *Server) healthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status": "healthy",
-		"service": "go-fred",
+		"service": "go-fred-rest",
 	})
 }
 
@@ -36,29 +37,29 @@ func (s *Server) createTask(c *gin.Context) {
 // listTasks returns all tasks
 func (s *Server) listTasks(c *gin.Context) {
 	tasks := s.taskManager.ListTasks()
-	
+
 	response := models.TaskListResponse{
 		Tasks: make([]models.Task, len(tasks)),
 		Total: len(tasks),
 	}
-	
+
 	for i, task := range tasks {
 		response.Tasks[i] = *task
 	}
-	
+
 	c.JSON(http.StatusOK, response)
 }
 
 // getTask returns a specific task by ID
 func (s *Server) getTask(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	task, err := s.taskManager.GetTask(taskID)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	response := models.TaskResponse{Task: task}
 	c.JSON(http.StatusOK, response)
 }
@@ -66,20 +67,20 @@ func (s *Server) getTask(c *gin.Context) {
 // executeTask executes a task synchronously
 func (s *Server) executeTask(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	err := s.taskManager.ExecuteTask(c.Request.Context(), taskID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	// Get the updated task
 	task, err := s.taskManager.GetTask(taskID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	response := models.TaskResponse{Task: task}
 	c.JSON(http.StatusOK, response)
 }
@@ -87,20 +88,20 @@ func (s *Server) executeTask(c *gin.Context) {
 // executeTaskAsync executes a task asynchronously
 func (s *Server) executeTaskAsync(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	err := s.taskManager.ExecuteTaskAsync(c.Request.Context(), taskID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	// Get the task to return current status
 	task, err := s.taskManager.GetTask(taskID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	response := models.TaskResponse{Task: task}
 	c.JSON(http.StatusAccepted, response)
 }
@@ -108,20 +109,20 @@ func (s *Server) executeTaskAsync(c *gin.Context) {
 // cancelTask cancels a running task
 func (s *Server) cancelTask(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	err := s.taskManager.CancelTask(taskID)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	// Get the updated task
 	task, err := s.taskManager.GetTask(taskID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	response := models.TaskResponse{Task: task}
 	c.JSON(http.StatusOK, response)
 }
@@ -131,7 +132,7 @@ func (s *Server) getTaskTypes(c *gin.Context) {
 	// Get the registry from task manager (we need to expose this method)
 	// For now, we'll return the known types
 	types := []string{"echo", "sleep", "error", "math"}
-	
+
 	c.JSON(http.StatusOK, gin.H{
 		"task_types": types,
 	})

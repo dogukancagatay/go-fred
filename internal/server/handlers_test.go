@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"go-fred/internal/config"
-	"go-fred/internal/events"
-	"go-fred/internal/models"
-	"go-fred/internal/tasks"
+	"go-fred-rest/internal/config"
+	"go-fred-rest/internal/events"
+	"go-fred-rest/internal/models"
+	"go-fred-rest/internal/tasks"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
@@ -96,7 +96,7 @@ func TestHealthCheck(t *testing.T) {
 	require.NoError(t, err)
 
 	assert.Equal(t, "healthy", response["status"])
-	assert.Equal(t, "go-fred", response["service"])
+	assert.Equal(t, "go-fred-rest", response["service"])
 }
 
 func TestCreateTask(t *testing.T) {

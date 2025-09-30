@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"go-fred/internal/config"
-	"go-fred/internal/events"
-	"go-fred/internal/tasks"
+	"go-fred-rest/internal/config"
+	"go-fred-rest/internal/events"
+	"go-fred-rest/internal/tasks"
 )
 
 func TestNew(t *testing.T) {

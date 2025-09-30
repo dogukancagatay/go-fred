@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"go-fred/internal/config"
+	"go-fred-rest/internal/config"
 )
 
 func TestNewPublisher(t *testing.T) {
@@ -140,8 +140,8 @@ func TestEventBuilder(t *testing.T) {
 	if event.ID == "" {
 		t.Error("Expected non-empty ID")
 	}
-	if event.Source != "go-fred" {
-		t.Errorf("Expected source 'go-fred', got '%s'", event.Source)
+	if event.Source != "go-fred-rest" {
+		t.Errorf("Expected source 'go-fred-rest', got '%s'", event.Source)
 	}
 	if event.Data["key1"] != "value1" {
 		t.Errorf("Expected key1 'value1', got '%v'", event.Data["key1"])

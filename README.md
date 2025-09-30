@@ -1,4 +1,4 @@
-# Go-Fred
+# go-fred
 
 A RESTful web application for running one-time or periodic tasks, built with Go and Gin. Supports both synchronous and asynchronous task execution with an event publication layer.
 
@@ -23,7 +23,7 @@ A RESTful web application for running one-time or periodic tasks, built with Go 
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/dogukancagatay/go-fred
 cd go-fred
 ```
 
@@ -36,13 +36,13 @@ go mod download
 3. Build the application:
 
 ```bash
-go build -o go-fred .
+go build -o go-fred-rest .
 ```
 
 4. Run the application:
 
 ```bash
-./go-fred
+./go-fred-rest
 ```
 
 The server will start on `localhost:8080` by default.
@@ -106,7 +106,7 @@ Returns the health status of the server.
 ```json
 {
   "status": "healthy",
-  "service": "go-fred"
+  "service": "go-fred-rest"
 }
 ```
 
@@ -577,7 +577,7 @@ events:
 3. Run the application:
 
 ```bash
-./go-fred
+./go-fred-rest
 ```
 
 ## License

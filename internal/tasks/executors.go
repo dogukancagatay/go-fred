@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"go-fred/internal/models"
+	"go-fred-rest/internal/models"
 )
 
 // EchoExecutor is a simple executor that echoes the input

@@ -29,7 +29,7 @@ func NewEventBuilder(eventType string) *EventBuilder {
 			Type:      eventType,
 			Timestamp: time.Now(),
 			Data:      make(map[string]interface{}),
-			Source:    "go-fred",
+			Source:    "go-fred-rest",
 		},
 	}
 }

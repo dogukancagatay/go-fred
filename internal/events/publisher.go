@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	"go-fred/internal/config"
+	"go-fred-rest/internal/config"
 
 	"github.com/segmentio/kafka-go"
 )

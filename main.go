@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"go-fred/internal/config"
-	"go-fred/internal/server"
+	"go-fred-rest/internal/config"
+	"go-fred-rest/internal/server"
 )
 
 func main() {

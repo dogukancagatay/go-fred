@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"go-fred/internal/models"
+	"go-fred-rest/internal/models"
 )
 
 func TestTaskManagerCreateTask(t *testing.T) {

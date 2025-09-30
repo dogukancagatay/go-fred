@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"go-fred/internal/events"
-	"go-fred/internal/models"
+	"go-fred-rest/internal/events"
+	"go-fred-rest/internal/models"
 )
 
 // mockPublisher is a mock event publisher for testing

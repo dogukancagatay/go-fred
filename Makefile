@@ -1,10 +1,10 @@
-# Go-Fred Makefile
+# Go-Fred-REST Makefile
 
 .PHONY: build test test-verbose test-coverage clean run help
 
 # Build the application
 build:
-	go build -o go-fred .
+	go build -o go-fred-rest .
 
 # Run tests
 test:
@@ -25,12 +25,12 @@ test-coverage-summary:
 
 # Clean build artifacts
 clean:
-	rm -f go-fred
+	rm -f go-fred-rest
 	rm -f coverage.out coverage.html
 
 # Run the application
 run: build
-	./go-fred
+	./go-fred-rest
 
 # Run the application with hot reload (requires air)
 dev:

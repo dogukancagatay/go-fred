@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"go-fred/internal/events"
-	"go-fred/internal/models"
+	"go-fred-rest/internal/events"
+	"go-fred-rest/internal/models"
 )
 
 // TaskExecutor defines the interface for executing tasks

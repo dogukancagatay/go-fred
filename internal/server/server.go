@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"go-fred/internal/config"
-	"go-fred/internal/events"
-	"go-fred/internal/tasks"
+	"go-fred-rest/internal/config"
+	"go-fred-rest/internal/events"
+	"go-fred-rest/internal/tasks"
 
 	"github.com/gin-gonic/gin"
 )
