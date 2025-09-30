@@ -530,40 +530,6 @@ make test-verbose
 make test-coverage
 ```
 
-### Project Structure
-
-```
-go-fred/
-├── main.go                 # Application entry point
-├── config.yaml            # Configuration file
-├── go.mod                 # Go module file
-├── go.sum                 # Go module checksums
-├── Makefile               # Build automation
-├── .air.toml              # Hot reload configuration
-├── internal/              # Internal packages
-│   ├── config/           # Configuration management
-│   │   ├── config.go
-│   │   └── config_test.go
-│   ├── events/           # Event publishing
-│   │   ├── publisher.go
-│   │   ├── events.go
-│   │   └── events_test.go
-│   ├── models/           # Data models
-│   │   ├── task.go
-│   │   └── task_test.go
-│   ├── server/           # HTTP server
-│   │   ├── server.go
-│   │   ├── server_test.go
-│   │   ├── handlers.go
-│   │   └── handlers_test.go
-│   └── tasks/            # Task execution
-│       ├── executor.go
-│       ├── executor_test.go
-│       ├── executors.go
-│       └── task_manager_test.go
-└── README.md             # This file
-```
-
 ### Adding Custom Task Types
 
 1. Implement the `TaskExecutor` interface:
